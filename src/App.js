@@ -3,7 +3,7 @@ import ImageUploader from 'react-images-upload'
 import './App.css';
 
 
-const UploadComponent = props =>{
+const UploadComponent = props => (
   <form>
     <label>
       File Upload URL:
@@ -21,7 +21,7 @@ const UploadComponent = props =>{
       maxFileSize= {5242880}
     ></ImageUploader>
   </form>
-}
+)
 
 const App = () => {
 
@@ -29,6 +29,31 @@ const App = () => {
     const [progress, setProgress] = useState('getUpload')
     const [url, setImageURL] = useState(undefined)
     const [errorMessage, setErrorMessage] = useState('')
+
+    const onUrlChange = e => {
+      setImageURL(e.target.value)
+    }
+
+    const onImage = async ( failedImages, successImages) => {
+      if(!url){
+        console.log("Missing URL")
+        setErrorMessage('missing a url to upload')
+        setProgress('uploadError')
+        return
+      }
+
+      setProgress('uploading')
+
+      try {
+        console.log("successimages", successImages)
+      } catch (error) {
+        console.log("errorin upload", error)
+        setErrorMessage(error.message)
+        setProgress('uploadError')
+      }
+    }
+
+    
 
 const content = () => {
     // eslint-disable-next-line default-case
