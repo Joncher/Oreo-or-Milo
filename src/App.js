@@ -33,7 +33,7 @@ const App = () => {
       try {
         console.log("successimages", successImages)
       } catch (error) {
-        console.log("errorin upload", error)
+        console.log("error in upload", error)
         setErrorMessage(error.message)
         setProgress('uploadError')
       }
