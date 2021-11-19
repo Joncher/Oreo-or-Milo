@@ -5,10 +5,6 @@ import './App.css';
 
 const UploadComponent = props => (
   <form>
-    <label>
-      File Upload URL:
-      <input id='urlInput' type='text' onChange={props.onUrlChange} value={props.url}></input>
-    </label>
     <ImageUploader
       key = "image-uploader"
       withIcon = {true}
@@ -27,20 +23,10 @@ const App = () => {
 
   
     const [progress, setProgress] = useState('getUpload')
-    const [url, setImageURL] = useState(undefined)
     const [errorMessage, setErrorMessage] = useState('')
-
-    const onUrlChange = e => {
-      setImageURL(e.target.value)
-    }
+    const url = "oreo-or-milo"
 
     const onImage = async ( failedImages, successImages) => {
-      if(!url){
-        console.log("Missing URL")
-        setErrorMessage('missing a url to upload')
-        setProgress('uploadError')
-        return
-      }
 
       setProgress('uploading')
 
@@ -59,7 +45,7 @@ const content = () => {
     // eslint-disable-next-line default-case
     switch(progress){
       case 'getUpload' :
-        return <UploadComponent onUrlChange={onUrlChange} onImage={onImage} url={url}/>
+        return <UploadComponent onImage={onImage} />
       case 'uploading':
         return <h2>Uploading...</h2>
       case 'uploaded':
