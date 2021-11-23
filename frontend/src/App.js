@@ -1,5 +1,9 @@
 import React, {useState} from 'react'
+
 import ImageUploader from 'react-images-upload'
+import Palette from 'react-palette';
+import { usePalette } from 'react-palette'
+
 import './App.css';
 
 
@@ -24,19 +28,28 @@ const App = () => {
   
     const [progress, setProgress] = useState('getUpload')
     const [errorMessage, setErrorMessage] = useState('')
+    const [image, setImage] = useState('')
     const url = "oreo-or-milo"
+    
+    
 
-    const onImage = async ( failedImages, successImages) => {
+    const onImage = async ( failedImages, successImages,) => {
 
       setProgress('uploading')
 
       try {
         console.log("successimages", successImages)
+        setImage(successImages)        
+
+        
+
       } catch (error) {
         console.log("error in upload", error)
         setErrorMessage(error.message)
         setProgress('uploadError')
       }
+      
+      setProgress('uploaded')
     }
 
     
@@ -49,7 +62,10 @@ const content = () => {
       case 'uploading':
         return <h2>Uploading...</h2>
       case 'uploaded':
-        return <img source= {url} alt='uploaded'/>
+        return <img src={image} style={{
+          height: 500,
+          width: 700
+        }}/>
       case 'uploadError':
         return (
           <>
